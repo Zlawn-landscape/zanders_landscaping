@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zander's Lawn & Landscape</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Georgia, serif;
+      color: #222;
+      background: #ec9004;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ── Colors ── */
+    :root {
+      --green:      #3a7d44;
+      --green-dark: #000000;
+      --green-light:#e8f5e9;
+      --gold:       #c8a951;
+      --text:       #222;
+      --muted:      #555;
+      --border:     #ddd;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--green-dark);
+      padding: 0 1.5rem;
+    }
+    nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      gap: 0;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    nav ul li a {
+      display: block;
+      padding: 1rem 0.9rem;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.03em;
+      transition: background 0.2s;
+    }
+    nav ul li a:hover { background: rgba(255,255,255,0.15); }
+
+    /* ── Hero ── */
+    #home {
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
+      color: #fff;
+      text-align: center;
+      padding: 5rem 1.5rem 4rem;
+    }
+    #home h1 {
+      font-size: 2.8rem;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+    }
+    #home .tagline {
+      font-family: Arial, sans-serif;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 1.5rem;
+    }
+    #home .location {
+      font-family: Arial, sans-serif;
+      font-size: 0.9rem;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.75rem 2rem;
+      background: var(--gold);
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      font-size: 0.95rem;
+      border-radius: 3px;
+      letter-spacing: 0.05em;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: #b5923e; }
+
+    /* ── Sections ── */
+    section {
+      padding: 3.5rem 1.5rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    section + section { border-top: 1px solid var(--border); }
+    h2 {
+      font-size: 1.8rem;
+      color: var(--green-dark);
+      margin-bottom: 1rem;
+    }
+    p {
+      font-family: Arial, sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    /* ── Parallax Dividers ── */
+    .parallax {
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
+      height: 220px;
+    }
+    @media (max-width: 600px) {
+      /* fixed attachment doesn't work well on iOS */
+      .parallax { background-attachment: scroll; }
+    }
+
+    /* ── Service Cards ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+    .service-card {
+      background: var(--green-light);
+      border-radius: 6px;
+      padding: 1.2rem 1rem 1rem;
+      font-family: Arial, sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      text-align: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .service-card img {
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--green);
+      margin: 0 auto 0.75rem;
+      display: block;
+    }
+    .service-card .label {
+      font-weight: bold;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .service-card small { color: var(--muted); font-size: 0.8rem; }
+
+    /* ── Gallery ── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .gallery-grid figure {
+      overflow: hidden;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+    }
+    .gallery-grid figure img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    .gallery-grid figure:hover img { transform: scale(1.04); }
+    .gallery-grid figcaption {
+      font-family: Arial, sans-serif;
+      font-size: 0.8rem;
+      color: var(--muted);
+      padding: 0.4rem 0.6rem;
+      background: #fafafa;
+    }
+
+    /* ── Contact ── */
+    #contact { background: var(--green-light); max-width: 100%; }
+    #contact > div { max-width: 860px; margin: 0 auto; padding: 3.5rem 1.5rem; }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      margin-top: 1.5rem;
+    }
+    .contact-info p { margin-bottom: 0.6rem; }
+    .contact-info a { color: var(--green); }
+    .contact-info a:hover { text-decoration: underline; }
+
+    form { display: flex; flex-direction: column; gap: 0.8rem; }
+    form input, form textarea {
+      padding: 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-family: Arial, sans-serif;
+      font-size: 0.95rem;
+      width: 100%;
+    }
+    form textarea { resize: vertical; min-height: 110px; }
+    form button {
+      align-self: flex-start;
+      padding: 0.7rem 1.8rem;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      font-family: Arial, sans-serif;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    form button:hover { background: var(--green-dark); }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--green-dark);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      font-family: Arial, sans-serif;
+      font-size: 0.85rem;
+      padding: 1.2rem;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 600px) {
+      #home h1 { font-size: 2rem; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#all-year">All-Year Services</a></li>
+    <li><a href="#spring-summer">Spring/Summer</a></li>
+    <li><a href="#spring">Spring</a></li>
+    <li><a href="#winter">Winter</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section id="home">
+  <h1>Zander's Lawn &amp; Landscape</h1>
+  <p class="tagline">Exceptional lawn care by a passionate local professional</p>
+  <p class="location">Serving Westover &amp; East Falls Church &mdash; Arlington, VA</p>
+  <a href="#contact" class="btn">Get a Free Quote</a>
+</section>
+
+<!-- About -->
+<section id="about">
+  <h2>About</h2>
+  <p>
+    Hi, I'm Zander — a local high school student in Arlington, VA who discovered a true passion for
+    lawn maintenance back in 6th grade. What started as helping neighbors has grown into a
+    full-service lawn and landscape business. I take pride in every yard I work on and am committed
+    to delivering exceptional results for homeowners in the Westover and East Falls Church areas.
+  </p>
+</section>
+
+<!-- All-Year Services -->
+<section id="all-year">
+  <h2>All-Year Services</h2>
+  <p>Available any time of year, rain or shine.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <img src="images/services/leaf-blowing.png" alt="Leaf blowing" />
+      <span class="label">Leaf Blowing</span>
+    </div>
+    <div class="service-card">
+      <img src="images/services/hardscaping.jpg" alt="Hardscaping" />
+      <span class="label">Hardscaping</span><br>
+      <small>Pathways &amp; retaining walls</small>
+    </div>
+  </div>
+</section>
+
+<!-- Parallax 1 -->
+<div class="parallax" style="background-image: url('images/backgrounds/2000_694eea72d1133.png');"></div>
+
+<!-- Spring/Summer Services -->
+<section id="spring-summer">
+  <h2>Spring / Summer Services</h2>
+  <p>Keep your lawn looking its best through the growing season.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <img src="images/services/mowing.png" alt="Mowing" />
+      <span class="label">Mowing</span>
+    </div>
+    <div class="service-card">
+      <img src="images/services/mulch.jpg" alt="Mulch installation" />
+      <span class="label">Mulch Installation</span>
+    </div>
+    <div class="service-card">
+      <img src="images/services/edging.jpg" alt="Edging" />
+      <span class="label">Edging</span>
+    </div>
+  </div>
+</section>
+
+<!-- Parallax 2 -->
+<div class="parallax" style="background-image: url('images/backgrounds/2000_694eeaa2872bb.png');"></div>
+
+<!-- Spring Services -->
+<section id="spring">
+  <h2>Spring Services</h2>
+  <p>Get your yard ready after a long winter.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <img src="images/services/weeding.jpg" alt="Weeding and spraying" />
+      <span class="label">Weeding &amp; Spraying</span>
+    </div>
+    <div class="service-card">
+      <img src="images/services/dethatching.jpg" alt="Dethatching" />
+      <span class="label">Dethatching</span>
+    </div>
+    <div class="service-card">
+      <img src="images/services/tree-trimming.jpg" alt="Tree and bush trimming" />
+      <span class="label">Tree &amp; Bush Trimming</span>
+    </div>
+  </div>
+</section>
+
+<!-- Parallax 3 -->
+<div class="parallax" style="background-image: url('images/backgrounds/2000_694eeb3f7f878.png');"></div>
+
+<!-- Winter Services -->
+<section id="winter">
+  <h2>Winter Services</h2>
+  <p>Safe, clear driveways and walkways all season long.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <img src="images/services/ice-removal.jpg" alt="Ice removal and salting" />
+      <span class="label">Ice Removal &amp; Salting</span><br>
+      <small>Sidewalks &amp; driveways</small>
+    </div>
+    <div class="service-card">
+      <img src="images/services/snow-removal.jpg" alt="Snow removal" />
+      <span class="label">Snow Removal</span><br>
+      <small>Sidewalks, driveways &amp; pathways</small>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section id="gallery">
+  <h2>Gallery</h2>
+  <p>Before &amp; after photos from recent projects.</p>
+  <div class="gallery-grid">
+    <figure>
+      <img src="images/gallery/before1.png" alt="Before — lawn project 1" />
+      <figcaption>Before</figcaption>
+    </figure>
+    <figure>
+      <img src="images/gallery/before2.png" alt="Before — lawn project 2" />
+      <figcaption>Before</figcaption>
+    </figure>
+    <figure>
+      <img src="images/gallery/after1.png" alt="After — lawn project 1" />
+      <figcaption>After</figcaption>
+    </figure>
+    <figure>
+      <img src="images/gallery/after2.png" alt="After — lawn project 2" />
+      <figcaption>After</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" style="padding:0">
+  <div>
+    <h2>Contact</h2>
+    <p>Ready to get started? Reach out and I'll get back to you quickly.</p>
+    <div class="contact-grid">
+
+      <div class="contact-info">
+        <p><strong>Email</strong><br><a href="mailto:zanderjwest@gmail.com">zanderjwest@gmail.com</a></p>
+        <p><strong>Phone</strong><br><a href="tel:+15704185199">(570) 418-5199</a></p>
+        <p><strong>Hours</strong><br>Monday – Sunday</p>
+        <p><strong>Service Area</strong><br>Westover &amp; East Falls Church<br>Arlington, VA</p>
+      </div>
+
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input type="text"  name="name"    placeholder="Your name"    required />
+        <input type="email" name="email"   placeholder="Your email"   required />
+        <input type="tel"   name="phone"   placeholder="Phone (optional)" />
+        <textarea           name="message" placeholder="Tell me about your project…" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; <span id="year"></span> Zander's Lawn &amp; Landscape &mdash; Arlington, VA
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
