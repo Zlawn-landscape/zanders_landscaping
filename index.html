@@ -32,27 +32,44 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: var(--green-dark);
-      padding: 0 1.5rem;
+      background: linear-gradient(180deg, rgba(0,0,0,0.96), rgba(0,0,0,0.9));
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 0 1rem;
     }
     nav ul {
       display: flex;
       flex-wrap: wrap;
       list-style: none;
-      gap: 0;
+      justify-content: center;
+      gap: 0.35rem;
       max-width: 900px;
       margin: 0 auto;
+      padding: 0.45rem 0;
     }
     nav ul li a {
-      display: block;
-      padding: 1rem 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.78rem 1rem;
       color: #fff;
       font-family: Arial, sans-serif;
-      font-size: 0.85rem;
-      letter-spacing: 0.03em;
-      transition: background 0.2s;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: transform 0.2s, background 0.2s, border-color 0.2s;
     }
-    nav ul li a:hover { background: rgba(255,255,255,0.15); }
+    nav ul li a:hover,
+    nav ul li a:focus-visible {
+      background: rgba(255,255,255,0.16);
+      border-color: rgba(200,169,81,0.5);
+      transform: translateY(-1px);
+      outline: none;
+    }
 
     /* ── Hero ── */
     #home {
@@ -123,6 +140,51 @@
     @media (max-width: 600px) {
       /* fixed attachment doesn't work well on iOS */
       .parallax { background-attachment: scroll; }
+
+      nav {
+        padding: 0.5rem 0.75rem;
+      }
+      nav summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        width: 100%;
+        margin: 0.35rem auto;
+        padding: 0.9rem 1rem;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        font-size: 0.9rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+        border-radius: 14px;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.1);
+      }
+      nav summary::after {
+        content: 'Menu';
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        color: var(--gold);
+      }
+      nav details[open] summary::after {
+        content: 'Close';
+      }
+      nav details > ul {
+        display: none;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 0.6rem;
+        padding: 0 0 0.3rem;
+      }
+      nav details[open] > ul {
+        display: flex;
+      }
+      nav ul li a {
+        width: 100%;
+        padding: 0.9rem 1rem;
+      }
     }
 
     /* ── Service Cards ── */
@@ -243,16 +305,19 @@
 
 <!-- Navigation -->
 <nav>
-  <ul>
-    <li><a href="#home">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#all-year">All-Year Services</a></li>
-    <li><a href="#spring-summer">Spring/Summer</a></li>
-    <li><a href="#spring">Spring</a></li>
-    <li><a href="#winter">Winter</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <details class="nav-menu">
+    <summary>Site Menu</summary>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#all-year">All-Year Services</a></li>
+      <li><a href="#spring-summer">Spring/Summer</a></li>
+      <li><a href="#spring">Spring</a></li>
+      <li><a href="#winter">Winter</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </details>
 </nav>
 
 <!-- Hero -->
